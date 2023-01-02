@@ -165,7 +165,7 @@ public class Bank {
 	public void createAccountForUser(User user) {
 		boolean exit = false;
 		while (!exit) {
-			int optionAccount = solicitarTipoCuenta();
+			int optionAccount = requestAccountType();
 			if (optionAccount == 3) {
 				exit = true;
 			} else {
@@ -208,7 +208,7 @@ public class Bank {
 		}
 	}
 
-	public int solicitarTipoCuenta() {
+	public int requestAccountType() {
 		int optionAccount = 0;
 		while (optionAccount != 1 && optionAccount != 2 && optionAccount != 3) {
 			try {
@@ -390,7 +390,11 @@ public class Bank {
 					double amount = Integer.parseInt(input);
 					selectedAccount.deposit(amount);
 					Transaction depositTransaction = new Transaction("Depósito", amount);
-					selectedAccount.addTransaction(depositTransaction);
+					try{
+						selectedAccount.addTransaction(depositTransaction);
+					} catch (IllegalArgumentException ex) {
+						System.out.println(ex.getMessage());
+						}
 					System.out.println(
 							"Depósito realizado con éxito. Tu saldo actual es: " + selectedAccount.getBalance());
 					validInput = true;

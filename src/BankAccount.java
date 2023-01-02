@@ -19,6 +19,9 @@ public class BankAccount {
 	}
 
 	public void withdraw(double amount) {
+		if (amount <= 0) {
+			throw new IllegalArgumentException("El monto a retirar debe ser mayor a 0.");
+		}
 		if (amount > this.balance) {
 			System.err.println("Error: no hay suficiente saldo disponible para realizar la operación");
 			return;
@@ -33,6 +36,9 @@ public class BankAccount {
 	}
 
 	public void deposit(double amount) {
+		if (amount <= 0) {
+			throw new IllegalArgumentException("El monto a depositar debe ser mayor a 0.");
+		}
 		balance += amount;
 	}
 
@@ -46,8 +52,7 @@ public class BankAccount {
 
 	public String getType() {
 		return this instanceof CheckingAccount ? "Cuenta corriente"
-				: this instanceof SavingsAccount ? "Cuenta de ahorro" 
-						: "Cuenta ";
+				: this instanceof SavingsAccount ? "Cuenta de ahorro" : "Cuenta ";
 	}
 
 	public List<BankAccount> getAccounts() {
