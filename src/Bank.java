@@ -72,7 +72,6 @@ public class Bank {
 			System.out.print("Selecciona una cuenta: ");
 
 			option = scInt.nextInt();
-			// creeria que aca ES EL PROBLEMA DEL BUFFER!!!!!
 
 			// Validar que la opción ingresada sea válida (que sea un número entre 1 y el
 			// número de cuentas del usuario)
