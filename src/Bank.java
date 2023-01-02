@@ -155,13 +155,16 @@ public class Bank {
 	}
 
 	/**
-
-	Este método permite crear una cuenta para un usuario determinado. El usuario puede elegir entre crear una cuenta corriente o de ahorros.
-	Si elige crear una cuenta corriente, se solicitará un límite de sobregiro. Si elige crear una cuenta de ahorros, no se solicitará ningún
-	dato adicional. Una vez creada la cuenta, se le asignará un número único y se agregará a la lista de cuentas del usuario y a la lista
-	de cuentas de la clase Bank.
-	@param user El usuario al que se le va a crear una cuenta.
-	*/
+	 * 
+	 * Este método permite crear una cuenta para un usuario determinado. El usuario
+	 * puede elegir entre crear una cuenta corriente o de ahorros. Si elige crear
+	 * una cuenta corriente, se solicitará un límite de sobregiro. Si elige crear
+	 * una cuenta de ahorros, no se solicitará ningún dato adicional. Una vez creada
+	 * la cuenta, se le asignará un número único y se agregará a la lista de cuentas
+	 * del usuario y a la lista de cuentas de la clase Bank.
+	 * 
+	 * @param user El usuario al que se le va a crear una cuenta.
+	 */
 	public void createAccountForUser(User user) {
 		boolean exit = false;
 		while (!exit) {
@@ -331,21 +334,23 @@ public class Bank {
 		}
 	}
 
-	
 	/**
-
-	Realiza una transferencia de una cuenta seleccionada a otra cuenta de destino.
-	Primero pregunta al usuario por el número de cuenta de destino y luego por la cantidad a transferir.
-	Luego verifica si la cuenta de destino existe y si la cuenta seleccionada tiene saldo suficiente para 
-	realizar la transferencia.
-	Si la cuenta seleccionada es una cuenta de ahorros, también se verifica que la transferencia no cause 
-	que el saldo mínimo sea superado.
-	Si todas las condiciones se cumplen, se realiza la transferencia y se muestra un mensaje de éxito.
-	Si la cuenta de destino no existe o la cuenta seleccionada no tiene saldo suficiente, se muestra un mensaje de error.
-	Si la cuenta seleccionada es un tipo de cuenta que no permite realizar transferencias, se muestra un mensaje de error.
-	@param selectedAccount la cuenta desde donde se realizará la transferencia
-	@throws Exception si ocurre algún error al realizar la transferencia
-	*/
+	 * 
+	 * Realiza una transferencia de una cuenta seleccionada a otra cuenta de
+	 * destino. Primero pregunta al usuario por el número de cuenta de destino y
+	 * luego por la cantidad a transferir. Luego verifica si la cuenta de destino
+	 * existe y si la cuenta seleccionada tiene saldo suficiente para realizar la
+	 * transferencia. Si la cuenta seleccionada es una cuenta de ahorros, también se
+	 * verifica que la transferencia no cause que el saldo mínimo sea superado. Si
+	 * todas las condiciones se cumplen, se realiza la transferencia y se muestra un
+	 * mensaje de éxito. Si la cuenta de destino no existe o la cuenta seleccionada
+	 * no tiene saldo suficiente, se muestra un mensaje de error. Si la cuenta
+	 * seleccionada es un tipo de cuenta que no permite realizar transferencias, se
+	 * muestra un mensaje de error.
+	 * 
+	 * @param selectedAccount la cuenta desde donde se realizará la transferencia
+	 * @throws Exception si ocurre algún error al realizar la transferencia
+	 */
 	private void makeTransfer(BankAccount selectedAccount) throws Exception {
 		System.out.println("Ingresa el número de cuenta destino: ");
 		String accountNumber = scInt.next();
@@ -390,11 +395,11 @@ public class Bank {
 					double amount = Integer.parseInt(input);
 					selectedAccount.deposit(amount);
 					Transaction depositTransaction = new Transaction("Depósito", amount);
-					try{
+					try {
 						selectedAccount.addTransaction(depositTransaction);
 					} catch (IllegalArgumentException ex) {
 						System.out.println(ex.getMessage());
-						}
+					}
 					System.out.println(
 							"Depósito realizado con éxito. Tu saldo actual es: " + selectedAccount.getBalance());
 					validInput = true;

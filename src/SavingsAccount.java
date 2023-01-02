@@ -61,28 +61,29 @@ public class SavingsAccount extends BankAccount {
 	}
 
 	protected void setMinimumBalance(double minBalance) {
-		  boolean inputError = false;
-		  do {
-		    try {
-		      System.out.println("Ingresa el saldo mínimo: ");
-		      double minimumBalance = scInt.nextDouble();
-		      if (minimumBalance < 0) {
-		          throw new IllegalArgumentException("El saldo mínimo debe ser mayor o igual a 0.");
-		      }
-		      if (minimumBalance > balance * MIN_ACTUAL_BALANCE) {
-		          throw new IllegalArgumentException("El saldo mínimo no puede ser mayor al 50% del saldo actual de la cuenta.");
-		      }
-		      if (minimumBalance % 1 != 0) {
-		          throw new IllegalArgumentException("El saldo mínimo debe ser un valor entero.");
-		      }
-		      this.minimumBalance = minimumBalance;
-		      inputError = false;
-		    } catch (IllegalArgumentException ex) {
-		      System.out.println(ex.getMessage());
-		      inputError = true;
-		    }
-		  } while (inputError);
-		}
+		boolean inputError = false;
+		do {
+			try {
+				System.out.println("Ingresa el saldo mínimo: ");
+				double minimumBalance = scInt.nextDouble();
+				if (minimumBalance < 0) {
+					throw new IllegalArgumentException("El saldo mínimo debe ser mayor o igual a 0.");
+				}
+				if (minimumBalance > balance * MIN_ACTUAL_BALANCE) {
+					throw new IllegalArgumentException(
+							"El saldo mínimo no puede ser mayor al 50% del saldo actual de la cuenta.");
+				}
+				if (minimumBalance % 1 != 0) {
+					throw new IllegalArgumentException("El saldo mínimo debe ser un valor entero.");
+				}
+				this.minimumBalance = minimumBalance;
+				inputError = false;
+			} catch (IllegalArgumentException ex) {
+				System.out.println(ex.getMessage());
+				inputError = true;
+			}
+		} while (inputError);
+	}
 
 	public void transfer(double amount, BankAccount destination) {
 		if (amount <= 0) {

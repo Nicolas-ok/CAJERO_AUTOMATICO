@@ -1,7 +1,7 @@
 
 public class Admin implements Authenticable {
 	private String username;
-	private String password;		
+	private String password;
 	private String email;
 
 	public Admin(String username, String password, String email) {
