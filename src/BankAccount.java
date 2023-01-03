@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BankAccount {
@@ -11,11 +12,30 @@ public class BankAccount {
 	private List<Transaction> transactions;
 
 	public BankAccount(String accountNumber, double balance) {
-		this.accountNumber = accountNumber;
-		this.balance = balance;
-		this.transactionHistory = new ArrayList<>();
+		setAccountNumber(accountNumber);
+		setBalance(balance);
+		setTransactionHistory();
+		setAccounts();
+
+	}
+
+	private void setAccounts() {
 		this.accounts = new ArrayList<>();
-		this.transactions = new ArrayList<>();
+
+	}
+
+	private void setTransactionHistory() {
+		this.transactionHistory = new ArrayList<>();
+
+	}
+
+	private void setBalance(double balance) {
+		this.balance = balance;
+
+	}
+
+	private void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
 	}
 
 	public void withdraw(double amount) {
@@ -56,9 +76,10 @@ public class BankAccount {
 	}
 
 	public List<BankAccount> getAccounts() {
-		return accounts;
+	    
+		  return Collections.unmodifiableList(accounts);
 	}
-
+	
 	public void transfer(BankAccount destinationAccount, double amount) throws Exception {
 		if (amount <= 0) {
 			throw new IllegalArgumentException("El monto a transferir debe ser mayor a cero.");
@@ -82,11 +103,14 @@ public class BankAccount {
 	}
 
 	public List<Transaction> getTransactions() {
-		return transactions;
+	    return Collections.unmodifiableList(transactions);
 	}
 
 	public void addTransaction(Transaction transaction) {
-		this.transactions.add(transaction);
+	    if (transactions == null) {
+	        transactions = new ArrayList<>();
+	    }
+	    transactions.add(transaction);
 	}
 
 }

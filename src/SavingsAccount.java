@@ -9,13 +9,16 @@ public class SavingsAccount extends BankAccount {
 	private final double INTEREST_RATE = 0.3;
 	private List<Transaction> transactions;
 	private double minimumBalance;
-	Scanner scInt = new Scanner(System.in);
+	Scanner scInt = new Scanner(System.in, "UTF_8");
 
 	public SavingsAccount(String accountNumber, double balance) {
 		super(accountNumber, balance);
-		this.transactions = new ArrayList<>();
+		setTransactions();
 	}
 
+	private void setTransactions() {
+		this.transactions = new ArrayList<>();
+	}
 	public double getINTEREST_RATE() {
 		return INTEREST_RATE;
 	}
@@ -106,7 +109,6 @@ public class SavingsAccount extends BankAccount {
 	}
 
 	public double getMinimumBalance() {
-		// TODO Auto-generated method stub
 		return minimumBalance;
 	}
 

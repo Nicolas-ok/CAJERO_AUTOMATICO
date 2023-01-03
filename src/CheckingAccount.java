@@ -1,4 +1,3 @@
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,12 +5,17 @@ public class CheckingAccount extends BankAccount {
 
 	protected double overdraftLimit;
 
-	protected List<Transaction> transactions;
+	private List<Transaction> transactions;
 	private List<BankAccount> accounts;
 
 	public CheckingAccount(String accountNumber, double balance, double overdraftLimit) {
 		super(accountNumber, balance);
-		this.overdraftLimit = overdraftLimit;
+		setOverdraftLimit(overdraftLimit);
+		setTransactions();
+		
+	}
+
+	private void setTransactions() {
 		this.transactions = new ArrayList<>();
 	}
 

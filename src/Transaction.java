@@ -9,8 +9,19 @@ public class Transaction {
 
 	public Transaction(String description, double amount) {
 		getDateTime();
-		this.amount = amount;
+		setDescription(description);
+		setAmount(amount);
+
+	}
+
+	private void setDescription(String description) {
 		this.description = description;
+
+	}
+
+	private void setAmount(double amount) {
+		this.amount = amount;
+
 	}
 
 	public String getDateTime() {

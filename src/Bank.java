@@ -10,12 +10,22 @@ public class Bank {
 	private int counterCheckingAccounts = 100;
 	private int counterSavingsAccounts = 1000;
 
-	Scanner scInt = new Scanner(System.in);
-	Scanner scString = new Scanner(System.in);
+	Scanner scInt = new Scanner(System.in, "UTF-8");
+	Scanner scString = new Scanner(System.in, "UTF-8");
 
 	public Bank(String code) {
-		users = new ArrayList<>();
+		setUsers();
+		setAccounts();
+
+	}
+
+	private void setAccounts() {
 		accounts = new ArrayList<>();
+
+	}
+
+	private void setUsers() {
+		users = new ArrayList<>();
 
 	}
 
@@ -443,11 +453,13 @@ public class Bank {
 	}
 
 	public List<BankAccount> getAccounts() {
-		return this.accounts;
+		List<BankAccount> accountsCopy = new ArrayList<>(accounts);
+		return accountsCopy;
 	}
 
 	public List<User> getUsers() {
-		return users;
-	}
+		  List<User> usersCopy = new ArrayList<>(users);
+		  return usersCopy;
+		}
 
 }

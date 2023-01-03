@@ -13,9 +13,18 @@ public class User {
 	private List<BankAccount> accounts;
 
 	public User(String username, String password) {
-		this.username = username;
-		this.password = password;
+		setUsername(username);
+		setPassword(password);
+		setAccounts();
 
+	}
+
+	private void setUsername(String username) {
+		this.username = username;
+
+	}
+
+	private void setAccounts() {
 		this.accounts = new ArrayList<>();
 
 	}
