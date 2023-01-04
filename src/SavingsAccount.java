@@ -9,7 +9,7 @@ public class SavingsAccount extends BankAccount {
 	private final double INTEREST_RATE = 0.3;
 	private List<Transaction> transactions;
 	private double minimumBalance;
-	Scanner scInt = new Scanner(System.in, "UTF_8");
+	Scanner scanner = new Scanner(System.in, "UTF-8");
 
 	public SavingsAccount(String accountNumber, double balance) {
 		super(accountNumber, balance);
@@ -19,6 +19,7 @@ public class SavingsAccount extends BankAccount {
 	private void setTransactions() {
 		this.transactions = new ArrayList<>();
 	}
+
 	public double getINTEREST_RATE() {
 		return INTEREST_RATE;
 	}
@@ -63,29 +64,18 @@ public class SavingsAccount extends BankAccount {
 		}
 	}
 
-	protected void setMinimumBalance(double minBalance) {
-		boolean inputError = false;
-		do {
-			try {
-				System.out.println("Ingresa el saldo mínimo: ");
-				double minimumBalance = scInt.nextDouble();
-				if (minimumBalance < 0) {
-					throw new IllegalArgumentException("El saldo mínimo debe ser mayor o igual a 0.");
-				}
-				if (minimumBalance > balance * MIN_ACTUAL_BALANCE) {
-					throw new IllegalArgumentException(
-							"El saldo mínimo no puede ser mayor al 50% del saldo actual de la cuenta.");
-				}
-				if (minimumBalance % 1 != 0) {
-					throw new IllegalArgumentException("El saldo mínimo debe ser un valor entero.");
-				}
-				this.minimumBalance = minimumBalance;
-				inputError = false;
-			} catch (IllegalArgumentException ex) {
-				System.out.println(ex.getMessage());
-				inputError = true;
-			}
-		} while (inputError);
+	protected void setMinimumBalance(double minimumBalance) {
+	    if (minimumBalance < 0) {
+	        throw new IllegalArgumentException("El saldo mínimo debe ser mayor o igual a 0.");
+	    }
+	    if (minimumBalance > (balance * MIN_ACTUAL_BALANCE)) {
+	        throw new IllegalArgumentException(
+	            "El saldo mínimo no puede ser mayor al 50% del saldo actual de la cuenta.");
+	    }
+	    if (minimumBalance % 1 != 0) {
+	        throw new IllegalArgumentException("El saldo mínimo debe ser un valor entero.");
+	    }
+	    this.minimumBalance = minimumBalance;
 	}
 
 	public void transfer(double amount, BankAccount destination) {

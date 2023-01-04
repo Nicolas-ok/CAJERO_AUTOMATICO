@@ -16,7 +16,13 @@ public class BankAccount {
 		setBalance(balance);
 		setTransactionHistory();
 		setAccounts();
+		setTransactions();
 
+	}
+
+	private void setTransactions() {
+		this.transactions = new ArrayList<>();
+		
 	}
 
 	private void setAccounts() {
@@ -103,14 +109,16 @@ public class BankAccount {
 	}
 
 	public List<Transaction> getTransactions() {
-	    return Collections.unmodifiableList(transactions);
+	    
+	    List<Transaction> transactionsCopy = new ArrayList<>(transactions);
+	    return transactionsCopy;
 	}
 
 	public void addTransaction(Transaction transaction) {
-	    if (transactions == null) {
+	    if (getTransactions() == null) {
 	        transactions = new ArrayList<>();
 	    }
-	    transactions.add(transaction);
+	    getTransactions().add(transaction);
 	}
 
 }
