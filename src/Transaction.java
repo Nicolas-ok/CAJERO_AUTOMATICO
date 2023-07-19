@@ -5,31 +5,28 @@ public class Transaction {
 
 	private double amount;
 	private String description;
-	String formattedDateTime;
+	private String formattedDateTime;
 
 	public Transaction(String description, double amount) {
-		getDateTime();
+		setDateTime();
 		setDescription(description);
 		setAmount(amount);
-
 	}
 
 	private void setDescription(String description) {
 		this.description = description;
-
 	}
 
 	private void setAmount(double amount) {
 		this.amount = amount;
-
 	}
 
-	public String getDateTime() {
+	private void setDateTime() {
 		LocalDateTime now = LocalDateTime.now();
-		String formattedDateTime = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-		return formattedDateTime;
-
+		this.formattedDateTime = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 	}
+// ESTO ES UN TEST!!!!!!!!!!!
+
 
 	public double getAmount() {
 		return amount;
@@ -37,5 +34,9 @@ public class Transaction {
 
 	public String getDescription() {
 		return description;
+	}
+
+	public String getFormattedDateTime() {
+		return formattedDateTime;
 	}
 }

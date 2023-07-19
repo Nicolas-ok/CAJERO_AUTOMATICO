@@ -1,124 +1,78 @@
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class BankAccount {
+public class CheckingAccount extends BankAccount {
 
-	protected String accountNumber;
-	protected double balance;
-	private List<Transaction> transactionHistory;
-	private List<BankAccount> accounts;
+	private double overdraftLimit;
 	private List<Transaction> transactions;
 
-	public BankAccount(String accountNumber, double balance) {
-		setAccountNumber(accountNumber);
-		setBalance(balance);
-		setTransactionHistory();
-		setAccounts();
+	public CheckingAccount(String accountNumber, double balance, double overdraftLimit) {
+		super(accountNumber, balance);
+		setOverdraftLimit(overdraftLimit);
 		setTransactions();
-
 	}
 
 	private void setTransactions() {
 		this.transactions = new ArrayList<>();
-		
 	}
 
-	private void setAccounts() {
-		this.accounts = new ArrayList<>();
-
-	}
-
-	private void setTransactionHistory() {
-		this.transactionHistory = new ArrayList<>();
-
-	}
-
-	private void setBalance(double balance) {
-		this.balance = balance;
-
-	}
-
-	private void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
-	}
-
+	@Override
 	public void withdraw(double amount) {
-		if (amount <= 0) {
-			throw new IllegalArgumentException("El monto a retirar debe ser mayor a 0.");
+		if (balance - amount < -overdraftLimit) {
+			throw new IllegalArgumentException("No hay suficientes fondos disponibles para realizar esta operación");
 		}
-		if (amount > this.balance) {
-			System.err.println("Error: no hay suficiente saldo disponible para realizar la operación");
-			return;
-		}
-		this.balance -= amount;
-		addTransactionToHistory("withdraw", amount);
+		balance -= amount;
 	}
 
-	private void addTransactionToHistory(String type, double amount) {
-		Transaction transaction = new Transaction(type, amount);
-		transactionHistory.add(transaction);
-	}
-
+	@Override
 	public void deposit(double amount) {
 		if (amount <= 0) {
 			throw new IllegalArgumentException("El monto a depositar debe ser mayor a 0.");
 		}
 		balance += amount;
+		transactions.add(new Transaction("Depósito", amount));
 	}
 
-	public double getBalance() {
-		return balance;
-	}
-
-	public String getAccountNumber() {
-		return accountNumber;
-	}
-
-	public String getType() {
-		return this instanceof CheckingAccount ? "Cuenta corriente"
-				: this instanceof SavingsAccount ? "Cuenta de ahorro" : "Cuenta ";
-	}
-
-	public List<BankAccount> getAccounts() {
-	    
-		  return Collections.unmodifiableList(accounts);
-	}
-	
-	public void transfer(BankAccount destinationAccount, double amount) throws Exception {
+	public void transfer(double amount, CheckingAccount destinationAccount) {
 		if (amount <= 0) {
-			throw new IllegalArgumentException("El monto a transferir debe ser mayor a cero.");
+			throw new IllegalArgumentException("El monto a transferir debe ser mayor a 0.");
 		}
 		if (destinationAccount == null) {
-			throw new IllegalArgumentException("La cuenta destino es inválida.");
+			throw new IllegalArgumentException("La cuenta destino es inválida o no existe.");
 		}
-		if (amount > this.balance) {
-			throw new Exception("No tienes suficiente saldo para realizar esta transferencia.");
+		if (balance < amount) {
+			throw new IllegalStateException("No tienes saldo suficiente para realizar esta transferencia.");
 		}
-		this.balance -= amount;
+		balance -= amount;
 		destinationAccount.balance += amount;
-
-		// Crear una nueva transacción para la cuenta origen
-		Transaction transaction = new Transaction("Transferencia a " + destinationAccount.getAccountNumber(), amount);
-		this.transactions.add(transaction);
-
-		// Crear una nueva transacción para la cuenta destino
-		transaction = new Transaction("Transferencia desde " + this.getAccountNumber(), amount);
-		destinationAccount.transactions.add(transaction);
+		transactions.add(new Transaction("Transferencia", -amount));
 	}
 
-	public List<Transaction> getTransactions() {
-	    
-	    List<Transaction> transactionsCopy = new ArrayList<>(transactions);
-	    return transactionsCopy;
+	public void checkBalance() {
+		System.out.println("El saldo actual de tu cuenta es: $" + balance);
+		if (balance < 0) {
+			System.out.println("ATENCIÓN: Tu cuenta se encuentra en sobregiro.");
+		}
 	}
 
-	public void addTransaction(Transaction transaction) {
-	    if (getTransactions() == null) {
-	        transactions = new ArrayList<>();
-	    }
-	    getTransactions().add(transaction);
+	public void setOverdraftLimit(double overdraftLimit) {
+		if (overdraftLimit < 0) {
+			throw new IllegalArgumentException("El límite de sobregiro debe ser mayor o igual a 0.");
+		}
+		if (overdraftLimit > balance) {
+			throw new IllegalArgumentException("El límite de sobregiro no puede ser mayor al saldo actual de la cuenta.");
+		}
+		// Establecer un límite máximo para el límite de sobregiro
+		double maxOverdraftLimit = balance * 0.5;
+		this.overdraftLimit = Math.min(overdraftLimit, maxOverdraftLimit);
 	}
 
+	public double getOverdraftLimit() {
+		return overdraftLimit;
+	}
+
+	@Override
+	public String getType() {
+		return "Cuenta corriente";
+	}
 }

@@ -3,16 +3,13 @@ import java.util.List;
 
 public class CheckingAccount extends BankAccount {
 
-	protected double overdraftLimit;
-
+	private double overdraftLimit;
 	private List<Transaction> transactions;
-	// private List<BankAccount> accounts;
 
 	public CheckingAccount(String accountNumber, double balance, double overdraftLimit) {
 		super(accountNumber, balance);
 		setOverdraftLimit(overdraftLimit);
 		setTransactions();
-
 	}
 
 	private void setTransactions() {
@@ -32,7 +29,6 @@ public class CheckingAccount extends BankAccount {
 		if (amount <= 0) {
 			throw new IllegalArgumentException("El monto a depositar debe ser mayor a 0.");
 		}
-
 		balance += amount;
 		transactions.add(new Transaction("Depósito", amount));
 	}
@@ -60,16 +56,15 @@ public class CheckingAccount extends BankAccount {
 	}
 
 	public void setOverdraftLimit(double overdraftLimit) {
-	    if (overdraftLimit < 0) {
-	        throw new IllegalArgumentException("El límite de sobregiro debe ser mayor o igual a 0.");
-	    }
-	    if (overdraftLimit > balance) {
-	        throw new IllegalArgumentException("El límite de sobregiro no puede ser mayor al saldo actual de la cuenta.");
-	    }
-	    // Establecer un límite máximo para el límite de sobregiro
-	    double maxOverdraftLimit = balance * 0.5;
-	    overdraftLimit = Math.min(overdraftLimit, maxOverdraftLimit);
-	    this.overdraftLimit = overdraftLimit;
+		if (overdraftLimit < 0) {
+			throw new IllegalArgumentException("El límite de sobregiro debe ser mayor o igual a 0.");
+		}
+		if (overdraftLimit > balance) {
+			throw new IllegalArgumentException("El límite de sobregiro no puede ser mayor al saldo actual de la cuenta.");
+		}
+		// Establecer un límite máximo para el límite de sobregiro
+		double maxOverdraftLimit = balance * 0.5;
+		this.overdraftLimit = Math.min(overdraftLimit, maxOverdraftLimit);
 	}
 
 	public double getOverdraftLimit() {
@@ -80,5 +75,4 @@ public class CheckingAccount extends BankAccount {
 	public String getType() {
 		return "Cuenta corriente";
 	}
-
 }
