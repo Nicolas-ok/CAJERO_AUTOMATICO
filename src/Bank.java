@@ -1,10 +1,9 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Scanner;
 
 public class Bank {
-
 	private List<User> users;
 	private List<BankAccount> accounts;
 	private int counterCheckingAccounts = 100;
@@ -75,7 +74,7 @@ public class Bank {
 	 * una cuenta de ahorros, no se solicitará ningún dato adicional. Una vez creada
 	 * la cuenta, se le asignará un número único y se agregará a la lista de cuentas
 	 * del usuario y a la lista de cuentas de la clase Bank.
-	 * 
+	 *
 	 * @param user El usuario al que se le va a crear una cuenta.
 	 */
 	public void createAccountForUser(User user) {
@@ -207,7 +206,7 @@ public class Bank {
 	        }
 	    }
 	}
-	
+
 	public void displayMenu(User user) {
 		BankAccount selectedAccount = selectAccount(user);
 		Option option = null;
@@ -407,7 +406,7 @@ public class Bank {
 	}
 
 	/**
-	 * 
+	 *
 	 * Realiza una transferencia de una cuenta seleccionada a otra cuenta de
 	 * destino. Primero pregunta al usuario por el número de cuenta de destino y
 	 * luego por la cantidad a transferir. Luego verifica si la cuenta de destino
@@ -419,7 +418,7 @@ public class Bank {
 	 * no tiene saldo suficiente, se muestra un mensaje de error. Si la cuenta
 	 * seleccionada es un tipo de cuenta que no permite realizar transferencias, se
 	 * muestra un mensaje de error.
-	 * 
+	 *
 	 * @param selectedAccount la cuenta desde donde se realizará la transferencia
 	 * @throws Exception si ocurre algún error al realizar la transferencia
 	 */

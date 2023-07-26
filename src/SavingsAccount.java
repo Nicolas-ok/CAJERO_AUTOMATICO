@@ -65,17 +65,17 @@ public class SavingsAccount extends BankAccount {
 	}
 
 	protected void setMinimumBalance(double minimumBalance) {
-	    if (minimumBalance < 0) {
-	        throw new IllegalArgumentException("El saldo mínimo debe ser mayor o igual a 0.");
-	    }
-	    if (minimumBalance > (balance * MIN_ACTUAL_BALANCE)) {
-	        throw new IllegalArgumentException(
-	            "El saldo mínimo no puede ser mayor al 50% del saldo actual de la cuenta.");
-	    }
-	    if (minimumBalance % 1 != 0) {
-	        throw new IllegalArgumentException("El saldo mínimo debe ser un valor entero.");
-	    }
-	    this.minimumBalance = minimumBalance;
+		if (minimumBalance < 0) {
+			throw new IllegalArgumentException("El saldo mínimo debe ser mayor o igual a 0.");
+		}
+		if (minimumBalance > (balance * MIN_ACTUAL_BALANCE)) {
+			throw new IllegalArgumentException(
+					"El saldo mínimo no puede ser mayor al 50% del saldo actual de la cuenta.");
+		}
+		if (minimumBalance % 1 != 0) {
+			throw new IllegalArgumentException("El saldo mínimo debe ser un valor entero.");
+		}
+		this.minimumBalance = minimumBalance;
 	}
 
 	public void transfer(double amount, BankAccount destination) {
